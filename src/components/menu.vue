@@ -9,7 +9,10 @@
       <div class="pure-menu">
         <ul class="pure-menu-list">
           <li class="pure-menu-item" v-repeat="tab in tabs">
-            <a href="#" class="pure-menu-link"> {{tab.name}} </a>
+            <a href="#"
+               class="pure-menu-link"
+               v-on="click: select(tab.id)"
+            > {{tab.name}} </a>
           </li>
         </ul>
       </div>
@@ -20,6 +23,7 @@
 <script>
 
 module.exports = {
+  props: ['params'],
   data: function() {
     return {
       tabs: [{
@@ -41,11 +45,9 @@ module.exports = {
       isSlide: false
     }
   },
-  compiled: function() {
-    this.update()
-  },
   methods: {
-    update: function() {
+    select: function(tab) {
+      this.params.tab = tab
     }
   }
 }

@@ -440,12 +440,15 @@
 	module.exports = {
 	  el: '#cnode',
 	  data: {
-	    tab: ''
+	    params: {
+	      tab: '',
+	      topicId: ''
+	    }
 	  },
 	  components: {
-	    article: __webpack_require__(39),
-	    menu: __webpack_require__(19),
-	    topics: __webpack_require__(33)
+	    'article': __webpack_require__(39),
+	    'menu': __webpack_require__(19),
+	    'topic-list': __webpack_require__(45)
 	  }
 	};
 
@@ -510,6 +513,7 @@
 	'use strict';
 	
 	module.exports = {
+	  props: ['params'],
 	  data: function data() {
 	    return {
 	      tabs: [{
@@ -531,11 +535,10 @@
 	      isSlide: false
 	    };
 	  },
-	  compiled: function compiled() {
-	    this.update();
-	  },
 	  methods: {
-	    update: function update() {}
+	    select: function select(tab) {
+	      this.params.tab = tab;
+	    }
 	  }
 	};
 
@@ -543,7 +546,7 @@
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"nav\" class=\"pure-u\" v-class=\"active: isSlide\">\n    <a href=\"#\" class=\"nav-menu-button\" v-on=\"click: isSlide = !isSlide\">Menu</a>\n    <div class=\"nav-inner\">\n      <div class=\"pure-menu\">\n        <ul class=\"pure-menu-list\">\n          <li class=\"pure-menu-item\" v-repeat=\"tab in tabs\">\n            <a href=\"#\" class=\"pure-menu-link\"> {{tab.name}} </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>";
+	module.exports = "<div id=\"nav\" class=\"pure-u\" v-class=\"active: isSlide\">\n    <a href=\"#\" class=\"nav-menu-button\" v-on=\"click: isSlide = !isSlide\">Menu</a>\n    <div class=\"nav-inner\">\n      <div class=\"pure-menu\">\n        <ul class=\"pure-menu-list\">\n          <li class=\"pure-menu-item\" v-repeat=\"tab in tabs\">\n            <a href=\"#\"\n               class=\"pure-menu-link\"\n               v-on=\"click: select(tab.id)\"\n            > {{tab.name}} </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>";
 
 /***/ },
 /* 24 */,
@@ -563,8 +566,8 @@
 	
 	var store = {};
 	
-	store.fetchTopics = function () {
-	  return fetch('https://cnodejs.org/api/v1/topics').then(function (response) {
+	store.fetchTopics = function (tab) {
+	  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab).then(function (response) {
 	    return response.json();
 	  });
 	};
@@ -583,7 +586,7 @@
 /* 30 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n    <menu></menu>\n    <topics tab=\"{{tab}}\"></topics>\n    <article></article>\n  </div>";
+	module.exports = "<div>\n    <menu params=\"{{params}}\"></menu>\n    <topic-list params=\"{{params}}\"></topic-list>\n    <article params=\"{{params}}\"></article>\n  </div>";
 
 /***/ },
 /* 31 */
@@ -930,89 +933,11 @@
 
 /***/ },
 /* 32 */,
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(34)
-	module.exports = __webpack_require__(36)
-	module.exports.template = __webpack_require__(37)
-
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(35);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(9)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./topics.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./topics.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(8)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var store = __webpack_require__(28);
-	
-	module.exports = {
-	  props: ['tab'],
-	  data: function data() {
-	    return {
-	      topics: []
-	    };
-	  },
-	  compiled: function compiled() {
-	    this.update();
-	  },
-	  methods: {
-	    update: function update() {
-	      store.fetchTopics().then((function (result) {
-	        // console.log(result)
-	        this.topics = result.data;
-	      }).bind(this));
-	    }
-	  }
-	};
-
-/***/ },
-/* 37 */
-/***/ function(module, exports) {
-
-	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"email-item pure-g\"\n         v-repeat=\"topic in topics\">\n      <div class=\"pure-u-1\">\n        {{topic.title}}\n      </div>\n    </div>\n  </div>";
-
-/***/ },
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
 /* 38 */,
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
@@ -1071,17 +996,27 @@
 	var store = __webpack_require__(28);
 	
 	module.exports = {
+	  props: ['params'],
 	  data: function data() {
 	    return {
 	      topic: {}
 	    };
+	  },
+	  watch: {
+	    'params.topicId': 'update'
 	  },
 	  compiled: function compiled() {
 	    this.update();
 	  },
 	  methods: {
 	    update: function update() {
-	      store.fetchTopicById('5433d5e4e737cbe96dcef312').then((function (result) {
+	      var id = this.params.topicId;
+	      if (!id) return;
+	
+	      this.fetchTopic(id);
+	    },
+	    fetchTopic: function fetchTopic(id) {
+	      store.fetchTopicById(id).then((function (result) {
 	        this.topic = result.data;
 	      }).bind(this));
 	    }
@@ -1092,7 +1027,103 @@
 /* 43 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"main\" class=\"pure-u-1\">\n    <div class=\"content\" v-html=\"topic.content\"></div>\n  </div>";
+	module.exports = "<div id=\"main\" class=\"pure-u-1\" v-show=\"topic.id\">\n    <div class=\"content\" v-html=\"topic.content\"></div>\n  </div>";
+
+/***/ },
+/* 44 */,
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(46)
+	module.exports = __webpack_require__(48)
+	module.exports.template = __webpack_require__(49)
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(47);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./topic-list.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./topic-list.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var store = __webpack_require__(28);
+	
+	module.exports = {
+	  props: ['params'],
+	  data: function data() {
+	    return {
+	      topics: []
+	    };
+	  },
+	  watch: {
+	    'params.tab': 'update'
+	  },
+	  compiled: function compiled() {
+	    this.update();
+	  },
+	  methods: {
+	    update: function update() {
+	      var tab = this.params.tab;
+	
+	      this.fetchTopics(tab);
+	      this.params.topicId = '';
+	    },
+	    fetchTopics: function fetchTopics(tab) {
+	      store.fetchTopics(tab).then((function (result) {
+	        // console.log(result)
+	        this.topics = result.data;
+	      }).bind(this));
+	    },
+	    select: function select(topicId) {
+	      this.params.topicId = topicId;
+	    }
+	  }
+	};
+
+/***/ },
+/* 49 */
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"email-item pure-g\"\n         v-repeat=\"topic in topics\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        {{topic.title}}\n      </div>\n    </div>\n  </div>";
 
 /***/ }
 /******/ ]);

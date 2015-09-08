@@ -1,8 +1,8 @@
 <template>
   <div>
-    <menu></menu>
-    <topics tab="{{tab}}"></topics>
-    <article></article>
+    <menu params="{{params}}"></menu>
+    <topic-list params="{{params}}"></topic-list>
+    <article params="{{params}}"></article>
   </div>
 </template>
 
@@ -10,12 +10,15 @@
 module.exports = {
   el: '#cnode',
   data: {
-    tab: ''
+    params: {
+      tab: '',
+      topicId: ''
+    }
   },
   components: {
-    article: require('./components/article.vue'),
-    menu: require('./components/menu.vue'),
-    topics: require('./components/topics.vue')
+    'article': require('./components/article.vue'),
+    'menu': require('./components/menu.vue'),
+    'topic-list': require('./components/topic-list.vue')
   }
 }
 </script>

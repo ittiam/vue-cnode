@@ -6,11 +6,11 @@
  */
 var store = {}
 
-store.fetchTopics = function() {
-  return fetch('https://cnodejs.org/api/v1/topics')
-    .then(function(response) {
-      return response.json()
-    })
+store.fetchTopics = function(tab) {
+  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab)
+  .then(function(response) {
+    return response.json()
+  })
 }
 
 store.fetchTopicById = function(id) {
