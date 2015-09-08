@@ -982,7 +982,7 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".content {\n  padding: 10px;\n}\n\n.content img {\n  max-width: 100%;\n}\n\n.markdown-text p,.preview p {\n  white-space: pre-wrap;\n  white-space: -moz-pre-wrap;\n  white-space: -pre-wrap;\n  white-space: -o-pre-wrap;\n  word-wrap: break-word;\n  line-height: 2em;\n  margin: 1em 0\n}\n\n.markdown-text>:first-child,.preview>:first-child {\n  margin-top: 0\n}\n\n.markdown-text>:last-child,.preview>:last-child {\n  margin-bottom: 1em\n}\n\n.markdown-text li,.preview li {\n  font-size: 14px;\n  line-height: 2em\n}\n\n.markdown-text li code,.markdown-text p code,.preview li code,.preview p code {\n  color: #000;\n  background-color: #fcfafa;\n  padding: 4px 6px\n}", ""]);
 	
 	// exports
 
@@ -1016,6 +1016,8 @@
 	      this.fetchTopic(id);
 	    },
 	    fetchTopic: function fetchTopic(id) {
+	      this.topc = {};
+	
 	      store.fetchTopicById(id).then((function (result) {
 	        this.topic = result.data;
 	      }).bind(this));
@@ -1074,7 +1076,7 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "#list {\n  box-shadow: 2px 1px 10px rgba(0,0,0,.8);\n}\n\n.topic-item {\n  padding: 0.9em 1em;\n  border-left: 6px solid transparent;\n}", ""]);
 	
 	// exports
 
@@ -1105,7 +1107,6 @@
 	      var tab = this.params.tab;
 	
 	      this.fetchTopics(tab);
-	      this.params.topicId = '';
 	    },
 	    fetchTopics: function fetchTopics(tab) {
 	      store.fetchTopics(tab).then((function (result) {
@@ -1123,7 +1124,7 @@
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"email-item pure-g\"\n         v-repeat=\"topic in topics\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        {{topic.title}}\n      </div>\n    </div>\n  </div>";
+	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"topic-item pure-g\"\n         v-repeat=\"topic in topics\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        <div class=\"pure-g\">\n          <div class=\"pure-u\">\n            <img src=\"{{topic.author.avatar_url}}\" alt=\"{{topic.author.loginname}}\" width=\"64\" height=\"64\">\n          </div>\n          <div class=\"pure-u-3-4\">\n            <h5>{{topic.title}}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>";
 
 /***/ }
 /******/ ]);
