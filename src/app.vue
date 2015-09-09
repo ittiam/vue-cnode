@@ -12,7 +12,8 @@ module.exports = {
   data: {
     params: {
       tab: '',
-      topicId: ''
+      topicId: '',
+      page: 0
     }
   },
   components: {

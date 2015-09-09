@@ -6,8 +6,8 @@
  */
 var store = {}
 
-store.fetchTopics = function(tab) {
-  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab)
+store.fetchTopics = function(tab, page) {
+  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab + '&page=' + page)
   .then(function(response) {
     return response.json()
   })

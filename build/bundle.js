@@ -450,7 +450,8 @@
 	  data: {
 	    params: {
 	      tab: '',
-	      topicId: ''
+	      topicId: '',
+	      page: 0
 	    }
 	  },
 	  components: {
@@ -533,7 +534,10 @@
 	  methods: {
 	    update: function update() {
 	      var id = this.params.topicId;
-	      if (!id) return;
+	      if (!id) {
+	        this.topic = {};
+	        return;
+	      }
 	
 	      this.fetchTopic(id);
 	    },
@@ -561,8 +565,8 @@
 	
 	var store = {};
 	
-	store.fetchTopics = function (tab) {
-	  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab).then(function (response) {
+	store.fetchTopics = function (tab, page) {
+	  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab + '&page=' + page).then(function (response) {
 	    return response.json();
 	  });
 	};
@@ -667,6 +671,8 @@
 	  methods: {
 	    select: function select(tab) {
 	      this.params.tab = tab;
+	      this.params.topicId = '';
+	      this.params.page = 0;
 	    }
 	  }
 	};
@@ -721,7 +727,7 @@
 	
 	
 	// module
-	exports.push([module.id, "#list {\n  box-shadow: 1px 1px 10px rgba(0,0,0,.5);\n}\n\n.topic-item {\n  padding: 0.9em 1em;\n  border-left: 6px solid transparent;\n  border-bottom: 1px solid #B6B6B6;\n}\n\n.topic-item.active {\n  background: #eee;\n}\n\n.topic-item h5 {\n  margin-left: 5px;\n}", ""]);
+	exports.push([module.id, "#list {\n  box-shadow: 1px 1px 10px rgba(0,0,0,.5);\n}\n\n.topic-item {\n  padding: 0.9em 1em;\n  border-left: 6px solid transparent;\n  border-bottom: 1px solid #B6B6B6;\n}\n\n.topic-item.active {\n  background: #eee;\n}\n\n.topic-item h5 {\n  margin-left: 5px;\n}\n\n.load-more {\n  display: block;\n  padding: 10px;\n  text-align: center;\n}", ""]);
 	
 	// exports
 
@@ -755,17 +761,26 @@
 	  methods: {
 	    update: function update() {
 	      var tab = this.params.tab;
+	      if (!tab) return;
 	
+	      this.topics = [];
 	      this.fetchTopics(tab);
 	    },
 	    fetchTopics: function fetchTopics(tab) {
-	      store.fetchTopics(tab).then((function (result) {
+	      var page = this.params.page;
+	
+	      store.fetchTopics(tab, page).then((function (result) {
 	        // console.log(result)
-	        this.topics = result.data;
+	        // this.topics = result.data
+	        this.topics = this.topics.concat(result.data);
+	        this.params.page++;
 	      }).bind(this));
 	    },
 	    select: function select(topicId) {
 	      this.params.topicId = topicId;
+	    },
+	    loadMore: function loadMore() {
+	      this.fetchTopics(this.params.tab);
 	    }
 	  }
 	};
@@ -774,7 +789,7 @@
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"topic-item pure-g\"\n         v-repeat=\"topic in topics\"\n         v-class=\"active: selectTopicId === topic.id\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        <div class=\"pure-g\">\n          <div class=\"pure-u\">\n            <img src=\"{{topic.author.avatar_url}}\" alt=\"{{topic.author.loginname}}\" width=\"64\" height=\"64\">\n          </div>\n          <div class=\"pure-u-3-4\">\n            <h5>{{topic.title}}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>";
+	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"topic-item pure-g\"\n         v-repeat=\"topic in topics\"\n         v-class=\"active: selectTopicId === topic.id\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        <div class=\"pure-g\">\n          <div class=\"pure-u\">\n            <img src=\"{{topic.author.avatar_url}}\" alt=\"{{topic.author.loginname}}\" width=\"64\" height=\"64\">\n          </div>\n          <div class=\"pure-u-3-4\">\n            <h5>{{topic.title}}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <a href=\"javascript:;\"\n       class=\"load-more\"\n       v-on=\"click: loadMore\">加载更多</a>\n  </div>";
 
 /***/ },
 /* 30 */

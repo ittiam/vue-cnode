@@ -16,6 +16,12 @@
 .topic-item h5 {
   margin-left: 5px;
 }
+
+.load-more {
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
 </style>
 
 <template>
@@ -35,6 +41,10 @@
         </div>
       </div>
     </div>
+
+    <a href="javascript:;"
+       class="load-more"
+       v-on="click: loadMore">加载更多</a>
   </div>
 </template>
 
@@ -62,18 +72,27 @@ module.exports = {
   methods: {
     update: function() {
       var tab = this.params.tab
+      if(!tab) return
 
+      this.topics = []
       this.fetchTopics(tab)
     },
     fetchTopics: function(tab) {
-      store.fetchTopics(tab)
+      var page = this.params.page
+
+      store.fetchTopics(tab, page)
         .then(function(result) {
           // console.log(result)
-          this.topics = result.data
+          // this.topics = result.data
+          this.topics = this.topics.concat(result.data)
+          this.params.page ++
         }.bind(this))
     },
     select: function(topicId) {
       this.params.topicId = topicId
+    },
+    loadMore: function() {
+      this.fetchTopics(this.params.tab)
     }
   }
 }

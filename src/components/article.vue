@@ -63,7 +63,10 @@ module.exports = {
   methods: {
     update: function() {
       var id = this.params.topicId
-      if(!id) return
+      if(!id) {
+        this.topic = {}
+        return
+      }
 
       this.fetchTopic(id)
     },

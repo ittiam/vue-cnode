@@ -57,6 +57,8 @@ module.exports = {
   methods: {
     select: function(tab) {
       this.params.tab = tab
+      this.params.topicId = ''
+      this.params.page = 0
     }
   }
 }
