@@ -1,5 +1,7 @@
 <style>
-
+#nav .pure-menu-item.active {
+  background: #dedede;
+}
 </style>
 
 <template>
@@ -8,8 +10,10 @@
     <div class="nav-inner">
       <div class="pure-menu">
         <ul class="pure-menu-list">
-          <li class="pure-menu-item" v-repeat="tab in tabs">
-            <a href="#"
+          <li class="pure-menu-item"
+              v-repeat="tab in tabs"
+              v-class="active: selectedTab === tab.id">
+            <a href="#{{tab.id}}"
                class="pure-menu-link"
                v-on="click: select(tab.id)"
             > {{tab.name}} </a>
@@ -43,6 +47,11 @@ module.exports = {
         id: 'job'
       }],
       isSlide: false
+    }
+  },
+  computed: {
+    selectedTab: function() {
+      return this.params.tab
     }
   },
   methods: {

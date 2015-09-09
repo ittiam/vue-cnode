@@ -68,7 +68,7 @@ module.exports = {
       this.fetchTopic(id)
     },
     fetchTopic: function(id) {
-      this.topc = {}
+      this.topic = {}
 
       store.fetchTopicById(id)
         .then(function(result) {

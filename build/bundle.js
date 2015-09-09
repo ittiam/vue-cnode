@@ -58,8 +58,16 @@
 	'use strict';
 	
 	__webpack_require__(6);
+	__webpack_require__(31);
 	
 	var App = new Vue(__webpack_require__(10));
+	
+	function route() {
+	  App.params.tab = window.location.hash.slice(1) || 'all';
+	}
+	
+	window.addEventListener('hashchange', route);
+	window.addEventListener('load', route);
 
 /***/ },
 /* 6 */
@@ -96,7 +104,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*http://purecss.io/layouts/email/*/\n/*\n * -- BASE STYLES --\n * Most of these are inherited from Base, but I want to change a few.\n */\nbody {\n    color: #333;\n}\n\n\n\na {\n    text-decoration: none;\n    color: #1b98f8;\n}\n\n\n/*\n * -- HELPER STYLES --\n * Over-riding some of the .pure-button styles to make my buttons look unique\n */\n.primary-button,\n.secondary-button {\n    box-shadow: none;\n    border-radius: 20px;\n}\n.primary-button {\n    color: #fff;\n    background: #1b98f8;\n    margin: 1em 0;\n}\n.secondary-button {\n    background: #fff;\n    border: 1px solid #ddd;\n    color: #666;\n    padding: 0.5em 2em;\n    font-size: 80%;\n}\n\n/*\n * -- LAYOUT STYLES --\n * This layout consists of three main elements, `#nav` (navigation bar), `#list` (email list), and `#main` (email content). All 3 elements are within `#cnode`\n */\n#cnode, #nav, #list, #main {\n    margin: 0;\n    padding: 0;\n}\n\n/* Make the navigation 100% width on phones */\n#nav {\n    width: 100%;\n    height: 40px;\n    position: relative;\n    background: rgb(37, 42, 58);\n    text-align: center;\n}\n/* Show the \"Menu\" button on phones */\n#nav .nav-menu-button {\n    display: block;\n    top: 0.5em;\n    right: 0.5em;\n    position: absolute;\n}\n\n/* When \"Menu\" is clicked, the navbar should be 80% height */\n#nav.active {\n    height: 80%;\n}\n/* Don't show the navigation items... */\n.nav-inner {\n    display: none;\n}\n\n/* ...until the \"Menu\" button is clicked */\n#nav.active .nav-inner {\n    display: block;\n    padding: 2em 0;\n}\n\n\n/*\n * -- NAV BAR STYLES --\n * Styling the default .pure-menu to look a little more unique.\n */\n#nav .pure-menu {\n    background: transparent;\n    border: none;\n    text-align: center;\n}\n    #nav .pure-menu-link:hover,\n    #nav .pure-menu-link:focus {\n        background: rgb(55, 60, 90);\n    }\n    #nav .pure-menu-link {\n        color: #fff;\n        margin-left: 0.5em;\n    }\n    #nav .pure-menu-heading {\n        border-bottom: none;\n        font-size:110%;\n        color: rgb(75, 113, 151);\n    }\n\n\n/*\n * -- EMAIL STYLES --\n * Styles relevant to the email messages, labels, counts, and more.\n */\n.email-count {\n    color: rgb(75, 113, 151);\n}\n\n.email-label-personal,\n.email-label-work,\n.email-label-travel {\n    width: 15px;\n    height: 15px;\n    display: inline-block;\n    margin-right: 0.5em;\n    border-radius: 3px;\n}\n.email-label-personal {\n    background: #ffc94c;\n}\n.email-label-work {\n    background: #41ccb4;\n}\n.email-label-travel {\n    background: #40c365;\n}\n\n\n/* Email Item Styles */\n.email-item {\n    padding: 0.9em 1em;\n    border-bottom: 1px solid #ddd;\n    border-left: 6px solid transparent;\n}\n    .email-avatar {\n        border-radius: 3px;\n        margin-right: 0.5em;\n    }\n    .email-name,\n    .email-subject {\n        margin: 0;\n    }\n    .email-name {\n        text-transform: uppercase;\n        color: #999;\n    }\n    .email-desc {\n        font-size: 80%;\n        margin: 0.4em 0;\n    }\n\n.email-item-selected {\n    background: #eee;\n}\n.email-item-unread {\n    border-left: 6px solid #1b98f8;\n}\n\n/* Email Content Styles */\n.email-content-header, .email-content-body, .email-content-footer {\n    padding: 1em 2em;\n}\n    .email-content-header {\n        border-bottom: 1px solid #ddd;\n    }\n\n        .email-content-title {\n            margin: 0.5em 0 0;\n        }\n        .email-content-subtitle {\n            font-size: 1em;\n            margin: 0;\n            font-weight: normal;\n        }\n            .email-content-subtitle span {\n                color: #999;\n            }\n    .email-content-controls {\n        margin-top: 2em;\n        text-align: right;\n    }\n        .email-content-controls .secondary-button {\n            margin-bottom: 0.3em;\n        }\n\n    .email-avatar {\n        width: 40px;\n        height: 40px;\n    }\n\n\n/*\n * -- TABLET (AND UP) MEDIA QUERIES --\n * On tablets and other medium-sized devices, we want to customize some\n * of the mobile styles.\n */\n@media (min-width: 40em) {\n\n    /* Move the layout over so we can fit the nav + list in on the left */\n    #cnode {\n        padding-left:500px; /* \"left col (nav + list)\" width */\n        position: relative;\n    }\n\n    /* These are position:fixed; elements that will be in the left 500px of the screen */\n    #nav, #list {\n        position: fixed;\n        top: 0;\n        bottom: 0;\n        overflow: auto;\n    }\n    #nav {\n        margin-left:-500px; /* \"left col (nav + list)\" width */\n        width:150px;\n        height: 100%;\n    }\n\n    /* Show the menu items on the larger screen */\n    .nav-inner {\n        display: block;\n        padding: 2em 0;\n    }\n\n    /* Hide the \"Menu\" button on larger screens */\n    #nav .nav-menu-button {\n        display: none;\n    }\n\n    #list {\n        margin-left: -350px;\n        width: 100%;\n        height: 33%;\n        border-bottom: 1px solid #ddd;\n    }\n\n    #main {\n        position: fixed;\n        top: 33%;\n        right: 0;\n        bottom: 0;\n        left: 150px;\n        overflow: auto;\n        width: auto; /* so that it's not 100% */\n    }\n\n}\n\n/*\n * -- DESKTOP (AND UP) MEDIA QUERIES --\n * On desktops and other large-sized devices, we want to customize some\n * of the mobile styles.\n */\n@media (min-width: 60em) {\n\n    /* This will take up the entire height, and be a little thinner */\n    #list {\n        margin-left: -350px;\n        width:350px;\n        height: 100%;\n        border-right: 1px solid #ddd;\n    }\n\n    /* This will now take up it's own column, so don't need position: fixed; */\n    #main {\n        position: static;\n        margin: 0;\n        padding: 0;\n    }\n}\n\n", ""]);
+	exports.push([module.id, "/*http://purecss.io/layouts/email/*/\n/*\n * -- BASE STYLES --\n * Most of these are inherited from Base, but I want to change a few.\n */\nbody {\n    color: #212121;\n    font-family: \"Helvetica Neue\", \"Luxi Sans\", \"DejaVu Sans\", Tahoma, \"Hiragino Sans GB\", \"Microsoft Yahei\", sans-serif;\n}\n\n\n\na {\n    text-decoration: none;\n    color: #1b98f8;\n}\n\n\n/*\n * -- HELPER STYLES --\n * Over-riding some of the .pure-button styles to make my buttons look unique\n */\n.primary-button,\n.secondary-button {\n    box-shadow: none;\n    border-radius: 20px;\n}\n.primary-button {\n    color: #fff;\n    background: #1b98f8;\n    margin: 1em 0;\n}\n.secondary-button {\n    background: #fff;\n    border: 1px solid #ddd;\n    color: #666;\n    padding: 0.5em 2em;\n    font-size: 80%;\n}\n\n/*\n * -- LAYOUT STYLES --\n * This layout consists of three main elements, `#nav` (navigation bar), `#list` (email list), and `#main` (email content). All 3 elements are within `#cnode`\n */\n#cnode, #nav, #list, #main {\n    margin: 0;\n    padding: 0;\n}\n\n/* Make the navigation 100% width on phones */\n#nav {\n    width: 100%;\n    height: 40px;\n    position: relative;\n    background: #fff;\n    text-align: center;\n}\n/* Show the \"Menu\" button on phones */\n#nav .nav-menu-button {\n    display: block;\n    top: 0.5em;\n    right: 0.5em;\n    position: absolute;\n}\n\n/* When \"Menu\" is clicked, the navbar should be 80% height */\n#nav.active {\n    height: 80%;\n}\n/* Don't show the navigation items... */\n.nav-inner {\n    display: none;\n}\n\n/* ...until the \"Menu\" button is clicked */\n#nav.active .nav-inner {\n    display: block;\n    padding: 2em 0;\n}\n\n\n/*\n * -- NAV BAR STYLES --\n * Styling the default .pure-menu to look a little more unique.\n */\n#nav .pure-menu {\n    background: transparent;\n    border: none;\n    text-align: center;\n}\n    #nav .pure-menu-link:hover,\n    #nav .pure-menu-link:focus {\n        background: #dedede;\n    }\n    #nav .pure-menu-link {\n        color: #000;\n        margin-left: 0.5em;\n    }\n    #nav .pure-menu-heading {\n        border-bottom: none;\n        font-size:110%;\n        color: #dedede;\n    }\n\n\n/*\n * -- EMAIL STYLES --\n * Styles relevant to the email messages, labels, counts, and more.\n */\n.email-count {\n    color: rgb(75, 113, 151);\n}\n\n.email-label-personal,\n.email-label-work,\n.email-label-travel {\n    width: 15px;\n    height: 15px;\n    display: inline-block;\n    margin-right: 0.5em;\n    border-radius: 3px;\n}\n.email-label-personal {\n    background: #ffc94c;\n}\n.email-label-work {\n    background: #41ccb4;\n}\n.email-label-travel {\n    background: #40c365;\n}\n\n\n/* Email Item Styles */\n.email-item {\n    padding: 0.9em 1em;\n    border-bottom: 1px solid #ddd;\n    border-left: 6px solid transparent;\n}\n    .email-avatar {\n        border-radius: 3px;\n        margin-right: 0.5em;\n    }\n    .email-name,\n    .email-subject {\n        margin: 0;\n    }\n    .email-name {\n        text-transform: uppercase;\n        color: #999;\n    }\n    .email-desc {\n        font-size: 80%;\n        margin: 0.4em 0;\n    }\n\n.email-item-selected {\n    background: #eee;\n}\n.email-item-unread {\n    border-left: 6px solid #1b98f8;\n}\n\n/* Email Content Styles */\n.email-content-header, .email-content-body, .email-content-footer {\n    padding: 1em 2em;\n}\n    .email-content-header {\n        border-bottom: 1px solid #ddd;\n    }\n\n        .email-content-title {\n            margin: 0.5em 0 0;\n        }\n        .email-content-subtitle {\n            font-size: 1em;\n            margin: 0;\n            font-weight: normal;\n        }\n            .email-content-subtitle span {\n                color: #999;\n            }\n    .email-content-controls {\n        margin-top: 2em;\n        text-align: right;\n    }\n        .email-content-controls .secondary-button {\n            margin-bottom: 0.3em;\n        }\n\n    .email-avatar {\n        width: 40px;\n        height: 40px;\n    }\n\n\n/*\n * -- TABLET (AND UP) MEDIA QUERIES --\n * On tablets and other medium-sized devices, we want to customize some\n * of the mobile styles.\n */\n@media (min-width: 40em) {\n\n    /* Move the layout over so we can fit the nav + list in on the left */\n    #cnode {\n        padding-left:500px; /* \"left col (nav + list)\" width */\n        position: relative;\n    }\n\n    /* These are position:fixed; elements that will be in the left 500px of the screen */\n    #nav, #list {\n        position: fixed;\n        top: 0;\n        bottom: 0;\n        overflow: auto;\n    }\n    #nav {\n        margin-left:-500px; /* \"left col (nav + list)\" width */\n        width:150px;\n        height: 100%;\n    }\n\n    /* Show the menu items on the larger screen */\n    .nav-inner {\n        display: block;\n        padding: 2em 0;\n    }\n\n    /* Hide the \"Menu\" button on larger screens */\n    #nav .nav-menu-button {\n        display: none;\n    }\n\n    #list {\n        margin-left: -350px;\n        width: 100%;\n        height: 33%;\n        border-bottom: 1px solid #ddd;\n    }\n\n    #main {\n        position: fixed;\n        top: 33%;\n        right: 0;\n        bottom: 0;\n        left: 150px;\n        overflow: auto;\n        width: auto; /* so that it's not 100% */\n    }\n\n}\n\n/*\n * -- DESKTOP (AND UP) MEDIA QUERIES --\n * On desktops and other large-sized devices, we want to customize some\n * of the mobile styles.\n */\n@media (min-width: 60em) {\n\n    /* This will take up the entire height, and be a little thinner */\n    #list {\n        margin-left: -350px;\n        width:350px;\n        height: 100%;\n        border-right: 1px solid #ddd;\n    }\n\n    /* This will now take up it's own column, so don't need position: fixed; */\n    #main {\n        position: static;\n        margin: 0;\n        padding: 0;\n    }\n}\n\n", ""]);
 	
 	// exports
 
@@ -446,34 +454,150 @@
 	    }
 	  },
 	  components: {
-	    'article': __webpack_require__(39),
-	    'menu': __webpack_require__(19),
-	    'topic-list': __webpack_require__(45)
+	    'article': __webpack_require__(14),
+	    'menu': __webpack_require__(20),
+	    'topic-list': __webpack_require__(25)
 	  }
 	};
 
 /***/ },
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(20)
-	module.exports = __webpack_require__(22)
-	module.exports.template = __webpack_require__(23)
+	__webpack_require__(15)
+	module.exports = __webpack_require__(17)
+	module.exports.template = __webpack_require__(19)
 
 
 /***/ },
-/* 20 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(21);
+	var content = __webpack_require__(16);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./article.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./article.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".content {\n  padding: 10px;\n}\n\n.content img {\n  max-width: 100%;\n}\n\n.markdown-text p,.preview p {\n  white-space: pre-wrap;\n  white-space: -moz-pre-wrap;\n  white-space: -pre-wrap;\n  white-space: -o-pre-wrap;\n  word-wrap: break-word;\n  line-height: 2em;\n  margin: 1em 0\n}\n\n.markdown-text>:first-child,.preview>:first-child {\n  margin-top: 0\n}\n\n.markdown-text>:last-child,.preview>:last-child {\n  margin-bottom: 1em\n}\n\n.markdown-text li,.preview li {\n  font-size: 14px;\n  line-height: 2em\n}\n\n.markdown-text li code,.markdown-text p code,.preview li code,.preview p code {\n  color: #000;\n  background-color: #fcfafa;\n  padding: 4px 6px\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var store = __webpack_require__(18);
+	
+	module.exports = {
+	  props: ['params'],
+	  data: function data() {
+	    return {
+	      topic: {}
+	    };
+	  },
+	  watch: {
+	    'params.topicId': 'update'
+	  },
+	  compiled: function compiled() {
+	    this.update();
+	  },
+	  methods: {
+	    update: function update() {
+	      var id = this.params.topicId;
+	      if (!id) return;
+	
+	      this.fetchTopic(id);
+	    },
+	    fetchTopic: function fetchTopic(id) {
+	      this.topic = {};
+	
+	      store.fetchTopicById(id).then((function (result) {
+	        this.topic = result.data;
+	      }).bind(this));
+	    }
+	  }
+	};
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	/**
+	 *
+	 * @authors Your Name (you@example.org)
+	 * @date    2015-09-08 14:10:45
+	 * @version $Id$
+	 */
+	'use strict';
+	
+	var store = {};
+	
+	store.fetchTopics = function (tab) {
+	  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab).then(function (response) {
+	    return response.json();
+	  });
+	};
+	
+	store.fetchTopicById = function (id) {
+	  return fetch('https://cnodejs.org/api/v1/topic/' + id).then(function (response) {
+	    return response.json();
+	  });
+	};
+	
+	module.exports = store;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"main\" class=\"pure-u-1\" v-show=\"topic.id\">\n    <div class=\"content\" v-html=\"topic.content\"></div>\n  </div>";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(21)
+	module.exports = __webpack_require__(23)
+	module.exports.template = __webpack_require__(24)
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(22);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(9)(content, {});
@@ -493,7 +617,7 @@
 	}
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -501,13 +625,13 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "#nav .pure-menu-item.active {\n  background: #dedede;\n}", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -535,6 +659,11 @@
 	      isSlide: false
 	    };
 	  },
+	  computed: {
+	    selectedTab: function selectedTab() {
+	      return this.params.tab;
+	    }
+	  },
 	  methods: {
 	    select: function select(tab) {
 	      this.params.tab = tab;
@@ -543,512 +672,28 @@
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"nav\" class=\"pure-u\" v-class=\"active: isSlide\">\n    <a href=\"#\" class=\"nav-menu-button\" v-on=\"click: isSlide = !isSlide\">Menu</a>\n    <div class=\"nav-inner\">\n      <div class=\"pure-menu\">\n        <ul class=\"pure-menu-list\">\n          <li class=\"pure-menu-item\" v-repeat=\"tab in tabs\">\n            <a href=\"#\"\n               class=\"pure-menu-link\"\n               v-on=\"click: select(tab.id)\"\n            > {{tab.name}} </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>";
+	module.exports = "<div id=\"nav\" class=\"pure-u\" v-class=\"active: isSlide\">\n    <a href=\"#\" class=\"nav-menu-button\" v-on=\"click: isSlide = !isSlide\">Menu</a>\n    <div class=\"nav-inner\">\n      <div class=\"pure-menu\">\n        <ul class=\"pure-menu-list\">\n          <li class=\"pure-menu-item\"\n              v-repeat=\"tab in tabs\"\n              v-class=\"active: selectedTab === tab.id\">\n            <a href=\"#{{tab.id}}\"\n               class=\"pure-menu-link\"\n               v-on=\"click: select(tab.id)\"\n            > {{tab.name}} </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>";
 
 /***/ },
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(fetch) {/**
-	 *
-	 * @authors Your Name (you@example.org)
-	 * @date    2015-09-08 14:10:45
-	 * @version $Id$
-	 */
-	'use strict';
-	
-	var store = {};
-	
-	store.fetchTopics = function (tab) {
-	  return fetch('https://cnodejs.org/api/v1/topics?tab=' + tab).then(function (response) {
-	    return response.json();
-	  });
-	};
-	
-	store.fetchTopicById = function (id) {
-	  return fetch('https://cnodejs.org/api/v1/topic/' + id).then(function (response) {
-	    return response.json();
-	  });
-	};
-	
-	module.exports = store;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
-
-/***/ },
-/* 29 */,
-/* 30 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\n    <menu params=\"{{params}}\"></menu>\n    <topic-list params=\"{{params}}\"></topic-list>\n    <article params=\"{{params}}\"></article>\n  </div>";
-
-/***/ },
-/* 31 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/*** IMPORTS FROM imports-loader ***/
-	(function() {
-	
-	(function() {
-	  'use strict';
-	
-	  if (self.fetch) {
-	    return
-	  }
-	
-	  function normalizeName(name) {
-	    if (typeof name !== 'string') {
-	      name = name.toString();
-	    }
-	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-	      throw new TypeError('Invalid character in header field name')
-	    }
-	    return name.toLowerCase()
-	  }
-	
-	  function normalizeValue(value) {
-	    if (typeof value !== 'string') {
-	      value = value.toString();
-	    }
-	    return value
-	  }
-	
-	  function Headers(headers) {
-	    this.map = {}
-	
-	    if (headers instanceof Headers) {
-	      headers.forEach(function(value, name) {
-	        this.append(name, value)
-	      }, this)
-	
-	    } else if (headers) {
-	      Object.getOwnPropertyNames(headers).forEach(function(name) {
-	        this.append(name, headers[name])
-	      }, this)
-	    }
-	  }
-	
-	  Headers.prototype.append = function(name, value) {
-	    name = normalizeName(name)
-	    value = normalizeValue(value)
-	    var list = this.map[name]
-	    if (!list) {
-	      list = []
-	      this.map[name] = list
-	    }
-	    list.push(value)
-	  }
-	
-	  Headers.prototype['delete'] = function(name) {
-	    delete this.map[normalizeName(name)]
-	  }
-	
-	  Headers.prototype.get = function(name) {
-	    var values = this.map[normalizeName(name)]
-	    return values ? values[0] : null
-	  }
-	
-	  Headers.prototype.getAll = function(name) {
-	    return this.map[normalizeName(name)] || []
-	  }
-	
-	  Headers.prototype.has = function(name) {
-	    return this.map.hasOwnProperty(normalizeName(name))
-	  }
-	
-	  Headers.prototype.set = function(name, value) {
-	    this.map[normalizeName(name)] = [normalizeValue(value)]
-	  }
-	
-	  Headers.prototype.forEach = function(callback, thisArg) {
-	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
-	      this.map[name].forEach(function(value) {
-	        callback.call(thisArg, value, name, this)
-	      }, this)
-	    }, this)
-	  }
-	
-	  function consumed(body) {
-	    if (body.bodyUsed) {
-	      return Promise.reject(new TypeError('Already read'))
-	    }
-	    body.bodyUsed = true
-	  }
-	
-	  function fileReaderReady(reader) {
-	    return new Promise(function(resolve, reject) {
-	      reader.onload = function() {
-	        resolve(reader.result)
-	      }
-	      reader.onerror = function() {
-	        reject(reader.error)
-	      }
-	    })
-	  }
-	
-	  function readBlobAsArrayBuffer(blob) {
-	    var reader = new FileReader()
-	    reader.readAsArrayBuffer(blob)
-	    return fileReaderReady(reader)
-	  }
-	
-	  function readBlobAsText(blob) {
-	    var reader = new FileReader()
-	    reader.readAsText(blob)
-	    return fileReaderReady(reader)
-	  }
-	
-	  var support = {
-	    blob: 'FileReader' in self && 'Blob' in self && (function() {
-	      try {
-	        new Blob();
-	        return true
-	      } catch(e) {
-	        return false
-	      }
-	    })(),
-	    formData: 'FormData' in self
-	  }
-	
-	  function Body() {
-	    this.bodyUsed = false
-	
-	
-	    this._initBody = function(body) {
-	      this._bodyInit = body
-	      if (typeof body === 'string') {
-	        this._bodyText = body
-	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-	        this._bodyBlob = body
-	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-	        this._bodyFormData = body
-	      } else if (!body) {
-	        this._bodyText = ''
-	      } else {
-	        throw new Error('unsupported BodyInit type')
-	      }
-	    }
-	
-	    if (support.blob) {
-	      this.blob = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-	
-	        if (this._bodyBlob) {
-	          return Promise.resolve(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as blob')
-	        } else {
-	          return Promise.resolve(new Blob([this._bodyText]))
-	        }
-	      }
-	
-	      this.arrayBuffer = function() {
-	        return this.blob().then(readBlobAsArrayBuffer)
-	      }
-	
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-	
-	        if (this._bodyBlob) {
-	          return readBlobAsText(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as text')
-	        } else {
-	          return Promise.resolve(this._bodyText)
-	        }
-	      }
-	    } else {
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        return rejected ? rejected : Promise.resolve(this._bodyText)
-	      }
-	    }
-	
-	    if (support.formData) {
-	      this.formData = function() {
-	        return this.text().then(decode)
-	      }
-	    }
-	
-	    this.json = function() {
-	      return this.text().then(JSON.parse)
-	    }
-	
-	    return this
-	  }
-	
-	  // HTTP methods whose capitalization should be normalized
-	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-	
-	  function normalizeMethod(method) {
-	    var upcased = method.toUpperCase()
-	    return (methods.indexOf(upcased) > -1) ? upcased : method
-	  }
-	
-	  function Request(url, options) {
-	    options = options || {}
-	    this.url = url
-	
-	    this.credentials = options.credentials || 'omit'
-	    this.headers = new Headers(options.headers)
-	    this.method = normalizeMethod(options.method || 'GET')
-	    this.mode = options.mode || null
-	    this.referrer = null
-	
-	    if ((this.method === 'GET' || this.method === 'HEAD') && options.body) {
-	      throw new TypeError('Body not allowed for GET or HEAD requests')
-	    }
-	    this._initBody(options.body)
-	  }
-	
-	  function decode(body) {
-	    var form = new FormData()
-	    body.trim().split('&').forEach(function(bytes) {
-	      if (bytes) {
-	        var split = bytes.split('=')
-	        var name = split.shift().replace(/\+/g, ' ')
-	        var value = split.join('=').replace(/\+/g, ' ')
-	        form.append(decodeURIComponent(name), decodeURIComponent(value))
-	      }
-	    })
-	    return form
-	  }
-	
-	  function headers(xhr) {
-	    var head = new Headers()
-	    var pairs = xhr.getAllResponseHeaders().trim().split('\n')
-	    pairs.forEach(function(header) {
-	      var split = header.trim().split(':')
-	      var key = split.shift().trim()
-	      var value = split.join(':').trim()
-	      head.append(key, value)
-	    })
-	    return head
-	  }
-	
-	  Body.call(Request.prototype)
-	
-	  function Response(bodyInit, options) {
-	    if (!options) {
-	      options = {}
-	    }
-	
-	    this._initBody(bodyInit)
-	    this.type = 'default'
-	    this.url = null
-	    this.status = options.status
-	    this.ok = this.status >= 200 && this.status < 300
-	    this.statusText = options.statusText
-	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
-	    this.url = options.url || ''
-	  }
-	
-	  Body.call(Response.prototype)
-	
-	  self.Headers = Headers;
-	  self.Request = Request;
-	  self.Response = Response;
-	
-	  self.fetch = function(input, init) {
-	    // TODO: Request constructor should accept input, init
-	    var request
-	    if (Request.prototype.isPrototypeOf(input) && !init) {
-	      request = input
-	    } else {
-	      request = new Request(input, init)
-	    }
-	
-	    return new Promise(function(resolve, reject) {
-	      var xhr = new XMLHttpRequest()
-	
-	      function responseURL() {
-	        if ('responseURL' in xhr) {
-	          return xhr.responseURL
-	        }
-	
-	        // Avoid security warnings on getResponseHeader when not allowed by CORS
-	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-	          return xhr.getResponseHeader('X-Request-URL')
-	        }
-	
-	        return;
-	      }
-	
-	      xhr.onload = function() {
-	        var status = (xhr.status === 1223) ? 204 : xhr.status
-	        if (status < 100 || status > 599) {
-	          reject(new TypeError('Network request failed'))
-	          return
-	        }
-	        var options = {
-	          status: status,
-	          statusText: xhr.statusText,
-	          headers: headers(xhr),
-	          url: responseURL()
-	        }
-	        var body = 'response' in xhr ? xhr.response : xhr.responseText;
-	        resolve(new Response(body, options))
-	      }
-	
-	      xhr.onerror = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-	
-	      xhr.open(request.method, request.url, true)
-	
-	      if (request.credentials === 'include') {
-	        xhr.withCredentials = true
-	      }
-	
-	      if ('responseType' in xhr && support.blob) {
-	        xhr.responseType = 'blob'
-	      }
-	
-	      request.headers.forEach(function(value, name) {
-	        xhr.setRequestHeader(name, value)
-	      })
-	
-	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-	    })
-	  }
-	  self.fetch.polyfill = true
-	})();
-	
-	
-	/*** EXPORTS FROM exports-loader ***/
-	module.exports = global.fetch}.call(global));
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(40)
-	module.exports = __webpack_require__(42)
-	module.exports.template = __webpack_require__(43)
+	__webpack_require__(26)
+	module.exports = __webpack_require__(28)
+	module.exports.template = __webpack_require__(29)
 
 
 /***/ },
-/* 40 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(41);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(9)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./article.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./article.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(8)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".content {\n  padding: 10px;\n}\n\n.content img {\n  max-width: 100%;\n}\n\n.markdown-text p,.preview p {\n  white-space: pre-wrap;\n  white-space: -moz-pre-wrap;\n  white-space: -pre-wrap;\n  white-space: -o-pre-wrap;\n  word-wrap: break-word;\n  line-height: 2em;\n  margin: 1em 0\n}\n\n.markdown-text>:first-child,.preview>:first-child {\n  margin-top: 0\n}\n\n.markdown-text>:last-child,.preview>:last-child {\n  margin-bottom: 1em\n}\n\n.markdown-text li,.preview li {\n  font-size: 14px;\n  line-height: 2em\n}\n\n.markdown-text li code,.markdown-text p code,.preview li code,.preview p code {\n  color: #000;\n  background-color: #fcfafa;\n  padding: 4px 6px\n}", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var store = __webpack_require__(28);
-	
-	module.exports = {
-	  props: ['params'],
-	  data: function data() {
-	    return {
-	      topic: {}
-	    };
-	  },
-	  watch: {
-	    'params.topicId': 'update'
-	  },
-	  compiled: function compiled() {
-	    this.update();
-	  },
-	  methods: {
-	    update: function update() {
-	      var id = this.params.topicId;
-	      if (!id) return;
-	
-	      this.fetchTopic(id);
-	    },
-	    fetchTopic: function fetchTopic(id) {
-	      this.topc = {};
-	
-	      store.fetchTopicById(id).then((function (result) {
-	        this.topic = result.data;
-	      }).bind(this));
-	    }
-	  }
-	};
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	module.exports = "<div id=\"main\" class=\"pure-u-1\" v-show=\"topic.id\">\n    <div class=\"content\" v-html=\"topic.content\"></div>\n  </div>";
-
-/***/ },
-/* 44 */,
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(46)
-	module.exports = __webpack_require__(48)
-	module.exports.template = __webpack_require__(49)
-
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(47);
+	var content = __webpack_require__(27);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(9)(content, {});
@@ -1068,7 +713,7 @@
 	}
 
 /***/ },
-/* 47 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -1076,18 +721,18 @@
 	
 	
 	// module
-	exports.push([module.id, "#list {\n  box-shadow: 2px 1px 10px rgba(0,0,0,.8);\n}\n\n.topic-item {\n  padding: 0.9em 1em;\n  border-left: 6px solid transparent;\n}", ""]);
+	exports.push([module.id, "#list {\n  box-shadow: 1px 1px 10px rgba(0,0,0,.5);\n}\n\n.topic-item {\n  padding: 0.9em 1em;\n  border-left: 6px solid transparent;\n  border-bottom: 1px solid #B6B6B6;\n}\n\n.topic-item.active {\n  background: #eee;\n}\n\n.topic-item h5 {\n  margin-left: 5px;\n}", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 48 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var store = __webpack_require__(28);
+	var store = __webpack_require__(18);
 	
 	module.exports = {
 	  props: ['params'],
@@ -1101,6 +746,11 @@
 	  },
 	  compiled: function compiled() {
 	    this.update();
+	  },
+	  computed: {
+	    selectTopicId: function selectTopicId() {
+	      return this.params.topicId;
+	    }
 	  },
 	  methods: {
 	    update: function update() {
@@ -1121,10 +771,56 @@
 	};
 
 /***/ },
-/* 49 */
+/* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"topic-item pure-g\"\n         v-repeat=\"topic in topics\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        <div class=\"pure-g\">\n          <div class=\"pure-u\">\n            <img src=\"{{topic.author.avatar_url}}\" alt=\"{{topic.author.loginname}}\" width=\"64\" height=\"64\">\n          </div>\n          <div class=\"pure-u-3-4\">\n            <h5>{{topic.title}}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>";
+	module.exports = "<div id=\"list\" class=\"pure-u-1\">\n    <div class=\"topic-item pure-g\"\n         v-repeat=\"topic in topics\"\n         v-class=\"active: selectTopicId === topic.id\">\n      <div class=\"pure-u-1\"\n           v-on=\"click: select(topic.id)\">\n        <div class=\"pure-g\">\n          <div class=\"pure-u\">\n            <img src=\"{{topic.author.avatar_url}}\" alt=\"{{topic.author.loginname}}\" width=\"64\" height=\"64\">\n          </div>\n          <div class=\"pure-u-3-4\">\n            <h5>{{topic.title}}</h5>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>";
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n    <menu params=\"{{params}}\"></menu>\n    <topic-list params=\"{{params}}\"></topic-list>\n    <article params=\"{{params}}\"></article>\n  </div>";
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(32);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./app.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./app.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "::-webkit-scrollbar {\n  width: 2px;\n  height: 2px;\n}\n::-webkit-scrollbar-button {\n  width: 0px;\n  height: 0px;\n}\n::-webkit-scrollbar-thumb {\n  background: #fff;\n  border: 0px none #ffffff;\n  border-radius: 50px;\n}\n::-webkit-scrollbar-thumb:hover {\n  background: #ffffff;\n}\n::-webkit-scrollbar-thumb:active {\n  background: #000000;\n}\n::-webkit-scrollbar-track {\n  background: transparent;\n  border: 0px none #ffffff;\n  border-radius: 50px;\n}\n::-webkit-scrollbar-track:hover {\n  background: transparent;\n}\n::-webkit-scrollbar-track:active {\n  background: #333333;\n}\n::-webkit-scrollbar-corner {\n  background: transparent;\n}\n", ""]);
+	
+	// exports
+
 
 /***/ }
 /******/ ]);
