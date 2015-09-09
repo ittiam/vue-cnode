@@ -1,7 +1,7 @@
 {
-  "name": "vue-daily",
-  "version": "0.0.0",
-  "description": "",
+  "name": "vue-cnode",
+  "version": "0.0.1",
+  "description": "cnodejs 的 vue 实现",
   "main": "index.js",
   "scripts": {
     "server": "./node_modules/.bin/webpack-dev-server --hot --config webpack.server.js",
